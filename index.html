@@ -273,6 +273,86 @@
             padding: 1.5rem 1rem;
         }
     }
+
+    /* Hamburger ikon stili */
+    .hamburger {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 1.6rem;
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .hamburger div {
+        height: 0.25rem;
+        background: var(--text);
+        border-radius: 4px;
+        transition: all 0.3s;
+    }
+
+    /* Kayar menü stili */
+    .side-menu {
+        position: fixed;
+        top: 0;
+        right: -260px;
+        width: 250px;
+        height: 100%;
+        background: var(--card);
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        padding-top: 4rem;
+        gap: 1.2rem;
+        padding-left: 1.5rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .side-menu a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+    }
+
+    .side-menu a:hover {
+        color: var(--accent);
+    }
+
+    /* Açık menü */
+    .side-menu.open {
+        right: 0;
+    }
+
+    /* Hamburger animasyon (çarpı) */
+    .hamburger.open div:nth-child(1) {
+        transform: translateY(0.65rem) rotate(45deg);
+    }
+
+    .hamburger.open div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.open div:nth-child(3) {
+        transform: translateY(-0.65rem) rotate(-45deg);
+    }
+
+    /* Mobil görünüm: hamburger aktif olsun, nav gizlensin */
+    @media (max-width: 768px) {
+        nav {
+            display: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+    }
 </style>
 </head>
 
@@ -289,6 +369,22 @@
         <a href="#projeler">Projeler</a>
         <a href="#iletisim">İletişim</a>
     </nav>
+
+    <!-- Hamburger ikon -->
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- Kayar Menü -->
+    <div class="side-menu" id="sideMenu">
+        <a href="#hakkimda">Hakkımda</a>
+        <a href="#teknolojiler">Teknolojiler</a>
+        <a href="#projeler">Projeler</a>
+        <a href="#iletisim">İletişim</a>
+    </div>
+
 
     <section id="hakkimda" class="card">
         <h2>🧠 Hakkımda</h2>
@@ -363,6 +459,23 @@
     <footer>
         © 2025 İbrahim Ethem Bahacan | Tüm hakları saklıdır.
     </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const sideMenu = document.getElementById('sideMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            sideMenu.classList.toggle('open');
+        });
+
+        sideMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                sideMenu.classList.remove('open');
+            });
+        });
+    </script>
 
 </body>
 
